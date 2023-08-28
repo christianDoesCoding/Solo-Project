@@ -1,4 +1,7 @@
 //renders the diagonal hexagons on the screen
+import React, { useEffect, useRef } from 'react';
+import './style.css';
+import * as d3 from 'd3';
 
 const numHexagons = 68; //about 66 visible hexagons in this row
 const hexagonSize = 12;
@@ -25,7 +28,6 @@ const colors = [
         '#aaff00',
         '#95ff00',
         '#80ff00',
-        '#6aff00',
         '#55ff00',
         '#40ff00',
         '#2bff00',
@@ -232,7 +234,16 @@ const svg = d3.select("#hexagon-container")
             .attr("width", svgWidth)
             .attr("height", svgHeight);
 
-function renderDiagonalLine(xPlacement, colorArr, delayPresent) {
+
+
+
+function HexagonComponent() {
+    const svgRef = useRef(null);
+
+    useEffect(() => {
+        const svg = d3.select(svgRef.current);
+
+        function renderDiagonalLine(xPlacement, colorArr, delayPresent) {
             for (let i = 0; i < numHexagons; i++) {
 
 
@@ -253,14 +264,27 @@ function renderDiagonalLine(xPlacement, colorArr, delayPresent) {
                         .delay(i * delayPresent)
                         .style("opacity", 1);
             }
+        }
+
+        function getHexagonPoints(x, y, size) {
+            const angles = d3.range(0, 2 * Math.PI, Math.PI / 3);
+            const points = angles.map(angle => [x + size * Math.cos(angle), y + size * Math.sin(angle)]);
+            return points.join(" ");
+        }
+
+        //can make subsequent lines with unneeeded buttons to be black, and can make a contional to where if black... its not an active button
+        renderDiagonalLine(hexagonSize*3.5, lightColors, 12);
+        renderDiagonalLine(0, colors, 15);
+        renderDiagonalLine(hexagonSize*-3.5, darkColors, 20);
+    }, []);
+
+
+    return (
+        <div id="hexagon-container" className="hexagon-container">
+            <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg>
+        </div>
+
+    )
 }
 
-function getHexagonPoints(x, y, size) {
-    const angles = d3.range(0, 2 * Math.PI, Math.PI / 3);
-    const points = angles.map(angle => [x + size * Math.cos(angle), y + size * Math.sin(angle)]);
-    return points.join(" ");
-}
-//can make subsequent lines with unneeeded buttons to be black, and can make a contional to where if black... its not an active button
-renderDiagonalLine(hexagonSize*3.5, lightColors, 12);
-renderDiagonalLine(0, colors, 15);
-renderDiagonalLine(hexagonSize*-3.5, darkColors, 20);
+export default HexagonComponent;

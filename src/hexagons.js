@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import './style.css';
 import * as d3 from 'd3';
-
+//import links from songSelector
 const numHexagons = 68; //about 66 visible hexagons in this row
 const hexagonSize = 12;
 const hexagonSpacing = 10;
@@ -229,62 +229,80 @@ const darkColors = [
 '#b3000f',
 '#b30000'];
 
-const svg = d3.select("#hexagon-container")
-            .append("svg")
-            .attr("width", svgWidth)
-            .attr("height", svgHeight);
 
+/*const svg = d3.select("#hexagon-container")
+.append("svg")
+.attr("width", svgWidth)
+.attr("height", svgHeight);
+*/
 
 
 
 function HexagonComponent() {
-    const svgRef = useRef(null);
 
-    useEffect(() => {
-        const svg = d3.select(svgRef.current);
+    const svgRef = useRef(null); //each individual click event
 
-        function renderDiagonalLine(xPlacement, colorArr, delayPresent) {
+    useEffect(() => {//creation of diagonal effect
+
+        const svg = d3.select(svgRef.current);//stating it is a d3 component
+
+        function renderDiagonalLine(xPlacement, colorArr, delayPresent, min, max) {//creates the diagonal line
             for (let i = 0; i < numHexagons; i++) {
+                if (i >= min && i <= max) {
 
+                const xPosition = i * (hexagonSize + hexagonSpacing) + xPlacement; //placement from left to right of screen
+                const yPosition = i * (hexagonSize * Math.sqrt(0.01) + hexagonSpacing); //placement from top to bottom of screen
 
-                const xPosition = i * (hexagonSize + hexagonSpacing) + xPlacement;
-                const yPosition = i * (hexagonSize * Math.sqrt(0.01) + hexagonSpacing);
-
-                const hexagon = svg.append("polygon")
+                const hexagon = svg.append("polygon") //creation of hexagon shape
                                 .attr("class", "hexagon-button")
                                 .attr("points", getHexagonPoints(xPosition, yPosition, hexagonSize))
-                                .style("fill", colorArr[i])
+                                .style("fill", colorArr[i]) //color coordination
                                 .style("opacity", 0)
                                 .on("click", function() {
-                                    window.location.href = links[i%links.length];
+                                    window.location.href = links[i%links.length]; //adding links to each button
                                 });
 
-                hexagon.transition() //add the flicker affect after all is rendered
-                        .duration(1000)
+                hexagon.transition() 
+                        .duration(500)
                         .delay(i * delayPresent)
-                        .style("opacity", 1);
-            }
-        }
+                        .style("opacity", 1)
 
-        function getHexagonPoints(x, y, size) {
-            const angles = d3.range(0, 2 * Math.PI, Math.PI / 3);
-            const points = angles.map(angle => [x + size * Math.cos(angle), y + size * Math.sin(angle)]);
-            return points.join(" ");
-        }
+                /*hexagon.transition() //STRETCH: add the flicker affect after all is rendered
+                        .duration(50)
+                        .delay(i * delayPresent)
+                        .style("opacity", 0)*/
+                }
+                        
+                        function getHexagonPoints(x, y, size) { //hexagon creation
+                            const angles = d3.range(0, 2 * Math.PI, Math.PI / 3);
+                            const points = angles.map(angle => [x + size * Math.cos(angle), y + size * Math.sin(angle)]);
+                            return points.join(" ");
+                        }
+                        
+                    }    
+    }
+//invoking the individual lines
+renderDiagonalLine(hexagonSize*14, colors, 30, 5, 12);
+renderDiagonalLine(hexagonSize*10.5, colors, 30, 6, 14);
+renderDiagonalLine(hexagonSize*3.5, lightColors, 12, 0, 68);
+renderDiagonalLine(hexagonSize*7, colors, 30, 7, 16);
+renderDiagonalLine(0, colors, 15, 0, 68);
+renderDiagonalLine(hexagonSize*-3.5, darkColors, 20, 0, 68);
+renderDiagonalLine(hexagonSize*-7, colors, 26, 44, 53);
+renderDiagonalLine(hexagonSize*-10.5, colors, 25, 46, 54);
+renderDiagonalLine(hexagonSize*-14, colors, 27, 48, 55);
 
-        //can make subsequent lines with unneeeded buttons to be black, and can make a contional to where if black... its not an active button
-        renderDiagonalLine(hexagonSize*3.5, lightColors, 12);
-        renderDiagonalLine(0, colors, 15);
-        renderDiagonalLine(hexagonSize*-3.5, darkColors, 20);
     }, []);
 
 
     return (
         <div id="hexagon-container" className="hexagon-container">
-            <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg>
+            <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg> //svg renders the svgRef, and gives height/width properties
         </div>
 
     )
 }
 
+//if color is black, it doesn't get click option
+//if number is not in between ranges, it gets blacked out
 export default HexagonComponent;

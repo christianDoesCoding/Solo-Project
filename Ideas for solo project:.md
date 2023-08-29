@@ -25,6 +25,9 @@ Chromesthesia site (Honeytone)
 
 - explore different animation styles that are possible. Add border to buttons. Add maybe texture to buttons?
 
+- create a credit system, where after amount of time (or adding funds) you can get credits, which allow you to save AI images from friends profiles. Maybe limit updating profile AI image depending on amount of credits you have
+
+- Profile starts with logo, and when ready to generate a picture, click on profile image. It will disappear for a second, and reappear with an AI image
 
 Steps:
     - Html
@@ -48,3 +51,9 @@ Tech-stack:
         - SQL or NO-SQL?
 
 Web Pack?
+
+                         (front page)
+Index.js --| App ---| login ---| Hexagon Buttons ---| songSelector
+                            ---| profile ---| collections
+                            ---| explore
+                            ---| friendFeed ---| Profile ---| chatlog

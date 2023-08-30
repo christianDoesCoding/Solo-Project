@@ -495,16 +495,8 @@ function assignClickHandler(hexagon, arr, i) {
             } //don't put localhost; if proxy is set up correctly it is not necessary
             console.log(`${(firstObj[numID])}`)
             console.log(`${numID}`)
+            
             //return window.open((firstObj[numID]));
-            // fetch(`/api?targetURL=${(firstObj[numID])}`)
-            //     .then(res => res.json())
-            //     .then(data => {
-            //         console.log(data);
-            //         console.log('Fetched song URL:', data.firstObj);
-            //     })
-            //     .catch(error => {
-            //         console.error('Fetch failed:', error);
-            //     });
         });
     };
 

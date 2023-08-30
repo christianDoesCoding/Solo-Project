@@ -9,10 +9,10 @@ import { useState, useEffect } from 'react';
 
 // regular shades get key 'i', light shades get 'ia', dark shades get 'ib'// added as properties for accessibility
     const firstObj = {
-        3a: 'https://www.youtube.com/watch?v=_YOvQNgpfXY&ab_channel=COLORS'
+        '3a': 'https://www.youtube.com/watch?v=_YOvQNgpfXY&ab_channel=COLORS'
     }
 
-//when button is clicked, it will open a new page in a new tab
+//when button is clicked, it will open a new page in a new tab 
 //upon returning back to screen, message will pop up asking for feedback
 
 

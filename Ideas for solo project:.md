@@ -66,4 +66,4 @@ Challenges so far:
     - Using D3 svg
     - getting front-end and back-end to work (mongoose)
         - ES5/commonJS (require(), module.exports = {}) and ES6 Module syntax (import, export)
-    
+    - understanding npm start & npm run server are two completely different and necessary commands in order to get frontend and backend compatibility

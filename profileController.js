@@ -1,7 +1,7 @@
 //coordination of different actions with a profile
 //const Profile = require('./profileModel');
 //import song object from songSelector
-import firstObj from '/songSelector.js'; //consider songMapping for description
+import firstObj from './songSelector.js'; //consider songMapping for description
 
 const profileController = {
 
@@ -13,8 +13,10 @@ const profileController = {
     selectSong: (req, res, next) => {
                 const { colorName } = req.query;
                 const songURL = firstObj[colorName];
+                
                 if (songURL) {
                     res.json({ firstObj: songURL});
+                    next();
                 } else {
                     res.status(404).send('oops, not that one... pick a different one :)')
                 }

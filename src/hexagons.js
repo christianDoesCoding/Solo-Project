@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import './style.css';
 import * as d3 from 'd3';
-//import firstObj from '/songSelector'
+import firstObj from '/songSelector.js'
 //import { profileController } from '/profileController'
 //import links from songSelector
 const numHexagons = 68; //about 66 visible hexagons in this row
@@ -233,46 +233,278 @@ const darkColors = [
 '#b3001e',
 '#b3000f',
 '#b30000'];
-const lightRow2 = [//6-14//need to come back to..
+const lightRow2 = [//6-14//need to come back to.
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
 '#ffbf80',
 '#ffca80',
-'#ffd480',
+'#ffffff',
 '#ffdf80',
 '#ffea80',
 '#fff480',
 '#ffff80',
-'#frff80',
+'#ffffff',
 '#eaff80',
 '#dfff80',
 '#d4ff80',
 '#caff80',
 '#bfff80'
-];
-const lightRow3 = [];
-const lightRow4 = [];
-const darkRow2 = [];
-const darkRow3 = [];
-const darkRow4 = [];
 
-function assignClickHandler(hexagon, i) {
+];
+const lightRow3 = [
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffe0c2',
+'#ffe5c2',
+'#ffebc2',
+'#fff0c2',
+'#ffffff',
+'#fffac2',
+'#ffffc2',
+'#faffc2',
+'#f5ffc2',
+'#f0ffc2',
+'#ebffc2'
+];
+const lightRow4 = [
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#fff2e5',
+'#fff4e5',
+'#ffffff',
+'#fff9e5',
+'#fffbe5',
+'#ffffff',
+'#ffffe5',
+'#fdffe5',
+'#fbffe5',
+'#f9ffe5',
+'#f6ffe5'
+];
+const darkRow2 = [
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#004080',
+'#003580',
+'#1a1a1a',
+'#002080',
+'#001580',
+'#000b80',
+'#000080',
+'#1a1a1a',
+'#150080',
+'#200080',
+'#2b0080',
+'#350080',
+'#400080',
+'#4a0080',
+'#33004d'
+];
+const darkRow3 = [
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#003366',
+'#002a66',
+'#002266',
+'#001966',
+'#141414',
+'#000866',
+'#000066',
+'#080066',
+'#110066',
+];
+const darkRow4 = [
+    '#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#ffffff',
+'#00264d',
+'#00204d',
+'#0d0d0d',
+'#00134d',
+'#000d4d',
+'#0d0d0d',
+'#000033',
+'#040033',
+'#080033',
+];
+
+function assignClickHandler(hexagon, arr, i) {
         hexagon.on("click", () => {
             let numID;
-            if (lightColors) {
+            if (arr === lightColors) {
                 numID = [i] + 'a';
-            } else if (darkColors) {
+            } else if (arr === darkColors) {
                 numID = [i] + 'b';
+            } else if (arr === lightRow2) {
+                numID = [i] + 'c';
+            } else if (arr === lightRow3) {
+                numID = [i] + 'd';
+            } else if (arr === lightRow4) {
+                numID = [i] + 'e';
+            } else if (arr === darkRow2) {
+                numID = [i] + 'f';
+            } else if (arr === darkRow3) {
+                numID = [i] + 'g';
+            } else if (arr === darkRow4) {
+                numID = [i] + 'h';
             } else {
                 numID = [i];
-            }
-    
-            fetch(`/songSelector?colorName=${numID}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Fetched song URL:', data.firstObj);
-                })
-                .catch(error => {
-                    console.error('Fetch failed:', error);
-                });
+            } //don't put localhost; if proxy is set up correctly it is not necessary
+            console.log(`${(firstObj[numID])}`)
+            console.log(`${numID}`)
+            //return window.open((firstObj[numID]));
+            // fetch(`/api?targetURL=${(firstObj[numID])}`)
+            //     .then(res => res.json())
+            //     .then(data => {
+            //         console.log(data);
+            //         console.log('Fetched song URL:', data.firstObj);
+            //     })
+            //     .catch(error => {
+            //         console.error('Fetch failed:', error);
+            //     });
         });
     };
 
@@ -295,7 +527,7 @@ function HexagonComponent() {
                     .style("fill", colorArr[i]) //color coordination
                     .style("opacity", 0)
                     
-            assignClickHandler(hexagon, i);        //once button is clicked, selectSong will get invoked
+            assignClickHandler(hexagon, colorArr, i);        //once button is clicked, selectSong will get invoked
                                 
 /*window.location.href = firstObj[hexKey];*/ //adding links to each button
                     hexagon.transition()
@@ -330,23 +562,23 @@ function HexagonComponent() {
 //invoking the individual lines
 setTimeout(() => {
 
-    renderDiagonalLine(hexagonSize*14, colors, 29, 5, 12);
-    renderDiagonalLine(hexagonSize*10.5, colors, 25, 6, 14);
-    renderDiagonalLine(hexagonSize*7, colors, 20, 7, 16);
+    renderDiagonalLine(hexagonSize*14, lightRow4, 29, 5, 12);
+    renderDiagonalLine(hexagonSize*10.5, lightRow3, 25, 6, 14);
+    renderDiagonalLine(hexagonSize*7, lightRow2, 20, 7, 16);
     renderDiagonalLine(hexagonSize*3.5, lightColors, 20, 0, 68);
     renderDiagonalLine(0, colors, 21, 0, 68);
     renderDiagonalLine(hexagonSize*-3.5, darkColors, 22, 0, 68);
-    renderDiagonalLine(hexagonSize*-7, colors, 20, 44, 53);
-    renderDiagonalLine(hexagonSize*-10.5, colors, 21, 46, 54);
-    renderDiagonalLine(hexagonSize*-14, colors, 22, 48, 55);
+    renderDiagonalLine(hexagonSize*-7, darkRow2, 20, 44, 53);
+    renderDiagonalLine(hexagonSize*-10.5, darkRow3, 21, 46, 54);
+    renderDiagonalLine(hexagonSize*-14, darkRow4, 22, 48, 55);
 },400);
 
     }, []);
 //hexKey={hexKey}
-//add logic to store id of button that was selected
+//add logic to store id of button that was selected //svg renders the svgRef, and gives height/width properties
     return (
         <div id="hexagon-container" className="hexagon-container">
-            <svg ref={svgRef} width={svgWidth} height={svgHeight} ></svg> //svg renders the svgRef, and gives height/width properties
+            <svg ref={svgRef} width={svgWidth} height={svgHeight} ></svg>
         </div>
 
     )

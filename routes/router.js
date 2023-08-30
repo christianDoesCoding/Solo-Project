@@ -72,4 +72,4 @@ router.post('/songSelector', require('.profileController').selectSong);
 app._router.listen(PORT () => console.log(`Listening on PORT: ${PORT}`));
 */
 
-export default app;
+export default router;

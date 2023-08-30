@@ -24,6 +24,16 @@ export default {
         extensions: ['.js', '.jsx']
     },    
 
+    devServer: {
+        headers: {
+            'Access-Control-Allow-Origin': '*' 
+        },
+        proxy: {
+          '/api/**': 'http://localhost:3000/',
+          secure: false
+        },
+      },
+      
     module: {
         rules: [
             {

@@ -57,3 +57,13 @@ Index.js --| App ---| login ---| Hexagon Buttons ---| songSelector
                             ---| profile ---| collections
                             ---| explore
                             ---| friendFeed ---| Profile ---| chatlog
+
+
+
+
+
+Challenges so far:
+    - Using D3 svg
+    - getting front-end and back-end to work (mongoose)
+        - ES5/commonJS (require(), module.exports = {}) and ES6 Module syntax (import, export)
+    

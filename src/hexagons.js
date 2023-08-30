@@ -2,12 +2,17 @@
 import React, { useEffect, useRef } from 'react';
 import './style.css';
 import * as d3 from 'd3';
+//import firstObj from '/songSelector'
+//import { profileController } from '/profileController'
 //import links from songSelector
 const numHexagons = 68; //about 66 visible hexagons in this row
 const hexagonSize = 12;
 const hexagonSpacing = 10;
 const svgWidth = window.innerWidth;
 const svgHeight = window.innerHeight;
+
+//if color is black, it doesn't get click option
+//if number is not in between ranges, it gets blacked out
 const colors = [
         '#ff3333',
         '#ff1500',
@@ -228,20 +233,51 @@ const darkColors = [
 '#b3001e',
 '#b3000f',
 '#b30000'];
+const lightRow2 = [//6-14//need to come back to..
+'#ffbf80',
+'#ffca80',
+'#ffd480',
+'#ffdf80',
+'#ffea80',
+'#fff480',
+'#ffff80',
+'#frff80',
+'#eaff80',
+'#dfff80',
+'#d4ff80',
+'#caff80',
+'#bfff80'
+];
+const lightRow3 = [];
+const lightRow4 = [];
+const darkRow2 = [];
+const darkRow3 = [];
+const darkRow4 = [];
 
-
-/*const svg = d3.select("#hexagon-container")
-.append("svg")
-.attr("width", svgWidth)
-.attr("height", svgHeight);
-*/
-
-
+function assignClickHandler(hexagon, i) {
+        hexagon.on("click", () => {
+            let numID;
+            if (lightColors) {
+                numID = [i] + 'a';
+            } else if (darkColors) {
+                numID = [i] + 'b';
+            } else {
+                numID = [i];
+            }
+    
+            fetch(`/songSelector?colorName=${numID}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Fetched song URL:', data.firstObj);
+                })
+                .catch(error => {
+                    console.error('Fetch failed:', error);
+                });
+        });
+    };
 
 function HexagonComponent() {
-
     const svgRef = useRef(null); //each individual click event
-
     useEffect(() => {//creation of diagonal effect
 
         const svg = d3.select(svgRef.current);//stating it is a d3 component
@@ -253,26 +289,36 @@ function HexagonComponent() {
                 const xPosition = i * (hexagonSize + hexagonSpacing) + xPlacement; //placement from left to right of screen
                 const yPosition = i * (hexagonSize * Math.sqrt(0.01) + hexagonSpacing); //placement from top to bottom of screen
 
-                const hexagon = svg.append("polygon") //creation of hexagon shape
-                                .attr("class", "hexagon-button")
-                                .attr("points", getHexagonPoints(xPosition, yPosition, hexagonSize))
-                                .style("fill", colorArr[i]) //color coordination
-                                .style("opacity", 0)
-                                .on("click", function() {
-                                    window.location.href = links[i%links.length]; //adding links to each button
-                                });
-
-                hexagon.transition() 
-                        .duration(500)
+                let hexagon = svg.append("polygon") //creation of hexagon shape
+                    .attr("class", "hexagon-button")
+                    .attr("points", getHexagonPoints(xPosition, yPosition, hexagonSize))
+                    .style("fill", colorArr[i]) //color coordination
+                    .style("opacity", 0)
+                    
+            assignClickHandler(hexagon, i);        //once button is clicked, selectSong will get invoked
+                                
+/*window.location.href = firstObj[hexKey];*/ //adding links to each button
+                    hexagon.transition()
+                        .duration(400) // flash on
                         .delay(i * delayPresent)
                         .style("opacity", 1)
+
+                        .transition()
+                        .delay(2500) // Add additional delay here if you want to wait before flashing off
+                        .duration(50) // flash off
+                        .style("opacity", 0)
+
+                        .transition()
+                        .delay(100) // Add delay here to wait before flashing back on
+                        .duration(50) // flash back on (flicker effect)
+                        .style("opacity", 1);
 
                 /*hexagon.transition() //STRETCH: add the flicker affect after all is rendered
                         .duration(50)
                         .delay(i * delayPresent)
                         .style("opacity", 0)*/
                 }
-                        
+                        //consider moving out of for loop for efficiency
                         function getHexagonPoints(x, y, size) { //hexagon creation
                             const angles = d3.range(0, 2 * Math.PI, Math.PI / 3);
                             const points = angles.map(angle => [x + size * Math.cos(angle), y + size * Math.sin(angle)]);
@@ -282,27 +328,29 @@ function HexagonComponent() {
                     }    
     }
 //invoking the individual lines
-renderDiagonalLine(hexagonSize*14, colors, 30, 5, 12);
-renderDiagonalLine(hexagonSize*10.5, colors, 30, 6, 14);
-renderDiagonalLine(hexagonSize*3.5, lightColors, 12, 0, 68);
-renderDiagonalLine(hexagonSize*7, colors, 30, 7, 16);
-renderDiagonalLine(0, colors, 15, 0, 68);
-renderDiagonalLine(hexagonSize*-3.5, darkColors, 20, 0, 68);
-renderDiagonalLine(hexagonSize*-7, colors, 26, 44, 53);
-renderDiagonalLine(hexagonSize*-10.5, colors, 25, 46, 54);
-renderDiagonalLine(hexagonSize*-14, colors, 27, 48, 55);
+setTimeout(() => {
+
+    renderDiagonalLine(hexagonSize*14, colors, 29, 5, 12);
+    renderDiagonalLine(hexagonSize*10.5, colors, 25, 6, 14);
+    renderDiagonalLine(hexagonSize*7, colors, 20, 7, 16);
+    renderDiagonalLine(hexagonSize*3.5, lightColors, 20, 0, 68);
+    renderDiagonalLine(0, colors, 21, 0, 68);
+    renderDiagonalLine(hexagonSize*-3.5, darkColors, 22, 0, 68);
+    renderDiagonalLine(hexagonSize*-7, colors, 20, 44, 53);
+    renderDiagonalLine(hexagonSize*-10.5, colors, 21, 46, 54);
+    renderDiagonalLine(hexagonSize*-14, colors, 22, 48, 55);
+},400);
 
     }, []);
-
-
+//hexKey={hexKey}
+//add logic to store id of button that was selected
     return (
         <div id="hexagon-container" className="hexagon-container">
-            <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg> //svg renders the svgRef, and gives height/width properties
+            <svg ref={svgRef} width={svgWidth} height={svgHeight} ></svg> //svg renders the svgRef, and gives height/width properties
         </div>
 
     )
 }
 
-//if color is black, it doesn't get click option
-//if number is not in between ranges, it gets blacked out
+
 export default HexagonComponent;

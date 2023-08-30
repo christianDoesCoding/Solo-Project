@@ -1,6 +1,8 @@
+//STRETCH
+
 import React, { useState, useEffect } from 'react';
 import { color } from 'd3';
-import HexagonComponent from './hexagons';
+import HexagonComponent from '../src/hexagons';
 //doesn't need to pull from HexagonComponent. Instead, this file needs its own hexagon-rendering logic
     //at same time, need to figure out how to object-destructure the midColors array from hexagons.js
 

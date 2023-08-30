@@ -1,16 +1,15 @@
 //need to figure out how to incorporate App.js with my html/ src folder
-
-import React, { Component } from 'react';
-import '../style.css'
-import HexagonComponent from '../hexagons';
+import React from 'react';
+import '../style.css';
+import HexagonComponent from '../hexagons.js';
 import beeImage from './Pictures/rainbow bee.jpeg';
 
-
+//{/* STRETCH: add an invisible button in front of picture to simulate button activity*/}
 function App() {
     return (
         <div>
             <div id="background"></div>
-            <div id="explore-button"> {/*add an invisible button in front of picture to simulate button activity*/}
+            <div id="explore-button">
                 <img src={beeImage} alt="Explore" style={{ width: '100px' }} />
             </div>
 

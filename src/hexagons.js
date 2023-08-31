@@ -496,7 +496,7 @@ function assignClickHandler(hexagon, arr, i) {
             console.log(`${(firstObj[numID])}`)
             console.log(`${numID}`)
             
-            //return window.open((firstObj[numID]));
+            return window.open((firstObj[numID])); //opens new tab and chooses the song
         });
     };
 

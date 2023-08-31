@@ -6,10 +6,10 @@ import logo from '../../../../logo.png'
 
 //greetings array //random greeting fades in after screen is rendered //stays for a few seconds, then fades out and lastly fades to logo 
 const greetArr = [
-    'Bonjour',
-    'Welcome back',
-    'Glad you made it',
-    'Long time no see'
+    'Bonjour ',
+    'Welcome back ',
+    'Glad you made it ',
+    'Long time no see '
 ];
 
 //depart array //when clicking on a button, before opening page, profile says a goodbye message
@@ -40,7 +40,7 @@ export default function ProfileContainer() {
 
 useEffect(() => {
     const greetArrLength = greetArr.length;
-    setGreeting(greetArr[Math.floor(Math.random()*greetArrLength)]) 
+    setGreeting(greetArr[Math.floor(Math.random()*greetArrLength)] + '\u00A0\u00A0') 
 
     const profileContainer = document.getElementById('profile-container');
     profileContainer.classList.add('loaded');

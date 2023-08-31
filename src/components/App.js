@@ -12,7 +12,7 @@ function App() {
         <div>
             <div id="background"></div>
             <div id="explore-button">
-                <img src={beeImage} alt="Explore" style={{ width: '100px' }} />
+                <img src={beeImage} alt="Explore" style={{ width: '125px' }} />
             </div>
 
             <div className="profile-container">

@@ -508,10 +508,12 @@ function assignClickHandler(hexagon, arr, i, individualColor) {
                 storedColors.shift();
                 storedColors.push(individualColor); //need to create setTimeout for delay for profile image
                 console.log(storedColors);
+                console.log(numID);
                 return window.open((firstObj[numID]))
             } else {
                 storedColors.push(individualColor);
                 console.log(storedColors);
+                console.log(numID);
                 return window.open((firstObj[numID])); //opens new tab and chooses the song
             }
         });

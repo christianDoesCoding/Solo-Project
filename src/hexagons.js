@@ -11,6 +11,7 @@ const hexagonSpacing = 10;
 const svgWidth = window.innerWidth;
 const svgHeight = window.innerHeight;
 
+const storedColors = []; //stores the 4 most recent individual colors
 //if color is black, it doesn't get click option
 //if number is not in between ranges, it gets blacked out
 const colors = [
@@ -471,32 +472,47 @@ const darkRow4 = [
 '#080033',
 ];
 
-function assignClickHandler(hexagon, arr, i) {
+function assignClickHandler(hexagon, arr, i, individualColor) {
         hexagon.on("click", () => {
             let numID;
+            let specificColor;
             if (arr === lightColors) {
                 numID = [i] + 'a';
+                specificColor = individualColor;
             } else if (arr === darkColors) {
                 numID = [i] + 'b';
+                specificColor = individualColor;
             } else if (arr === lightRow2) {
                 numID = [i] + 'c';
+                specificColor = individualColor;
             } else if (arr === lightRow3) {
                 numID = [i] + 'd';
+                specificColor = individualColor;
             } else if (arr === lightRow4) {
                 numID = [i] + 'e';
+                specificColor = individualColor;
             } else if (arr === darkRow2) {
                 numID = [i] + 'f';
+                specificColor = individualColor;
             } else if (arr === darkRow3) {
                 numID = [i] + 'g';
+                specificColor = individualColor;
             } else if (arr === darkRow4) {
                 numID = [i] + 'h';
+                specificColor = individualColor;
             } else {
                 numID = [i];
             } //don't put localhost; if proxy is set up correctly it is not necessary
-            console.log(`${(firstObj[numID])}`)
-            console.log(`${numID}`)
             
-            return window.open((firstObj[numID])); //opens new tab and chooses the song
+            if (storedColors.length >= 4) {
+                storedColors.push(individualColor); //need to create setTimeout for delay for profile image
+                console.log(storedColors);
+                return window.open((firstObj[numID]))
+            } else {
+                storedColors.push(individualColor);
+                console.log(storedColors);
+                return window.open((firstObj[numID])); //opens new tab and chooses the song
+            }
         });
     };
 
@@ -509,17 +525,17 @@ function HexagonComponent() {
         function renderDiagonalLine(xPlacement, colorArr, delayPresent, min, max) {//creates the diagonal line
             for (let i = 0; i < numHexagons; i++) {
                 if (i >= min && i <= max) {
-
+            let individualColor = colorArr[i]
                 const xPosition = i * (hexagonSize + hexagonSpacing) + xPlacement; //placement from left to right of screen
                 const yPosition = i * (hexagonSize * Math.sqrt(0.01) + hexagonSpacing); //placement from top to bottom of screen
 
                 let hexagon = svg.append("polygon") //creation of hexagon shape
                     .attr("class", "hexagon-button")
                     .attr("points", getHexagonPoints(xPosition, yPosition, hexagonSize))
-                    .style("fill", colorArr[i]) //color coordination
+                    .style("fill", individualColor) //color coordination
                     .style("opacity", 0)
                     
-            assignClickHandler(hexagon, colorArr, i);        //once button is clicked, selectSong will get invoked
+            assignClickHandler(hexagon, colorArr, i, individualColor);        //once button is clicked, selectSong will get invoked
                                 
 /*window.location.href = firstObj[hexKey];*/ //adding links to each button
                     hexagon.transition()

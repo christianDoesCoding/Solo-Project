@@ -3,7 +3,7 @@ import React from 'react';
 import '../style.css';
 import HexagonComponent from '../hexagons.js';
 import beeImage from './Pictures/rainbow bee.jpeg';
-
+import ProfileContainer from '../../Stretch/Profile.js';
 //{/* STRETCH: add an invisible button in front of picture to simulate button activity*/}
 function App() {
     return (
@@ -16,8 +16,8 @@ function App() {
             <div className="profile-container">
                 <div className="profile-comb"></div>
             </div>
-
             <HexagonComponent />
+            <ProfileContainer />
         </div>
     );
 }

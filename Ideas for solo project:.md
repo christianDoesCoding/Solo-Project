@@ -53,10 +53,10 @@ Tech-stack:
 Web Pack?
 
                          (front page)
-Index.js --| App ---| login ---| Hexagon Buttons ---| songSelector
+Index.js --| App ---| login ---| *Hexagon Buttons ---| *songSelector
                             ---| profile ---| collections
                             ---| explore
-                            ---| friendFeed ---| Profile ---| chatlog
+                            ---| friendFeed ---| Profiles ---| chatlog
 
 
 

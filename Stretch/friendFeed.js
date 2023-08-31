@@ -1,7 +1,7 @@
 //STRETCH
 
-import React, { useState, useEffect } from 'react';
-import { color } from 'd3';
+import React, { useState, useEffect, useRef } from 'react';
+import * as d3 from 'd3';
 import HexagonComponent from '../src/hexagons.js';
 //doesn't need to pull from HexagonComponent. Instead, this file needs its own hexagon-rendering logic
     //at same time, need to figure out how to object-destructure the midColors array from hexagons.js
@@ -26,8 +26,7 @@ const cohortObj = {
     Bryan_C: 'Bryan Choe', 
     Caheri_A: 'Caheri Aguilar', 
     Chris_S: 'Chris Suzukida', 
-    Christian_A: 'Christian Ashley', 
-    Christian_L: 'Christian Lyon', 
+    Christian_A: 'Christian Ashley',  
     Christian_R: 'Christian Robinson', 
     Clayton_S: 'Clayton Stewart', 
     Christian_M: 'Christian Morales', 
@@ -186,21 +185,50 @@ const IncrementFriends = () => {
 */
 
 
-const IncrementFriend = () => {
+
+const getHexagonPoints = (x, y, size) => { //hexagon creation
+
+//const svgPro = useRef(null)
+const angles = d3.range(0, 2 * Math.PI, Math.PI / 3);
+const points = angles.map(angle => [x + size * Math.cos(angle), y + size * Math.sin(angle)]);
+return points.map(point => point.join(',')).join(" ");
+
+}
+
+const Hexagon = ({ color }) => {
+    const svgRef = useRef(null);
+
+    useEffect(() => {
+        const svg = d3.select(svgRef.current);
+        svg.append("polygon")
+           .attr("points", getHexagonPoints(18,18,12))
+           .style("fill", color);
+    }, [color]);
+    
+    return <svg ref={svgRef} width="50" height="35" />
+};
+
+
+
+
+const IncrementFriend = () => {//add logic to increment friend that creates hexagon with random color
     const [currentFriend, setCurrentFriend] = useState([]);
     let shortenedNames = Object.keys(cohortObj).map(element => element.replace('_',' ') + '.');
-    
+
     useEffect(() => {
         const addName = () => {
             const randomName = shortenedNames[Math.floor(Math.random()*shortenedNames.length)];
 
-            setCurrentFriend(previous => [...previous, {name: randomName, id: new Date().getTime() }]);
+            setCurrentFriend(previous => [...previous, {name: randomName, color: randomHexagonColor(), id: new Date().getTime() }]);
 
             const randomTime = 1000 + Math.floor(Math.random()*4000);
             setTimeout(addName, randomTime);
         }
     
-    addName();
+    setTimeout(() => {
+        addName()
+    },5000);
+
 }, []);
 
 
@@ -225,6 +253,7 @@ const IncrementFriend = () => {
         <div className="nameContainer">
             {currentFriend.map((nameObj, index) => (
                 <div className="nameWrapper" key={nameObj.id}>
+                    <Hexagon color={nameObj.color} />
                     <div className="name" style={{animationDelay: `${index * 1}s`}}>
                         {nameObj.name}
                     </div>

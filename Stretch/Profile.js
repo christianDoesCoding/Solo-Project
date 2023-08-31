@@ -43,9 +43,9 @@ useEffect(() => {
     return (
         <div id="profile-container" className="profile-container">
             <div className="profile-comb">
-                <div className="greeting">{greetings}
-                <img src={logo} alt='logo' className='my-logo' />
+                <div className="greeting-text">{greetings}
                 </div>
+                <img src={logo} alt='logo' className='my-logo' />
             </div>
         </div>
     )

@@ -114,7 +114,8 @@ TODO:
 .greeting {
     opacity: 0;
     animation: textFadeIn 4s forwards 4s;
-    font-size: 24px;
+    animation-fill-mode: forwards;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -122,29 +123,33 @@ TODO:
     opacity: 0;
 }
 
+
 @keyframes textFadeIn {
     0% {
         opacity: 0;
     }
-70% {
+    70% {
         opacity: 1;
     }
     100% {
-        opacity: 0
+        opacity: 0;
     }
 }
 
 .my-logo {
     align-items: center;
     justify-content: center;
-    max-width: 50%;
+    max-width: 40px;
     height: auto;
     opacity: 0;
-    animation: logoFadeIn 2s forwards 8s;
+    animation: logoFadeIn 6s forwards 6s;
 }
 
 @keyframes logoFadeIn {
-    to {
+    0% {
+        opacity: 0;
+    }
+    100% {
         opacity: 1;
     }
 }

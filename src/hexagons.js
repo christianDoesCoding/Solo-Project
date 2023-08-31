@@ -505,6 +505,7 @@ function assignClickHandler(hexagon, arr, i, individualColor) {
             } //don't put localhost; if proxy is set up correctly it is not necessary
             
             if (storedColors.length >= 4) {
+                storedColors.shift();
                 storedColors.push(individualColor); //need to create setTimeout for delay for profile image
                 console.log(storedColors);
                 return window.open((firstObj[numID]))

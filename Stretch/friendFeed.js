@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { color } from 'd3';
-import HexagonComponent from '../src/hexagons';
+import HexagonComponent from '../src/hexagons.js';
 //doesn't need to pull from HexagonComponent. Instead, this file needs its own hexagon-rendering logic
     //at same time, need to figure out how to object-destructure the midColors array from hexagons.js
 
@@ -87,7 +87,6 @@ const cohortObj = {
 };
 
 
-//let shortenedNames = Object.keys(cohortObj).map(element => element.replace('_',' ') + '.');
 let randomInc = () => 4000 + Math.floor(Math.random()*4000); //going too fast?
 //let cohortNum = Math.floor(Math.random()*76);//possibly move back into for loop. perhaps too much memory in global?
 //let colorNum = Math.floor(Math.random()*68);
@@ -186,9 +185,26 @@ const IncrementFriends = () => {
 }
 */
 
-const IncrementFriends = () => {
-    const [currentFriend, setCurrentFriend] = useState(null);
 
+const IncrementFriend = () => {
+    const [currentFriend, setCurrentFriend] = useState([]);
+    let shortenedNames = Object.keys(cohortObj).map(element => element.replace('_',' ') + '.');
+    
+    useEffect(() => {
+        const addName = () => {
+            const randomName = shortenedNames[Math.floor(Math.random()*shortenedNames.length)];
+
+            setCurrentFriend(previous => [...previous, {name: randomName, id: new Date().getTime() }]);
+
+            const randomTime = 1000 + Math.floor(Math.random()*4000);
+            setTimeout(addName, randomTime);
+        }
+    
+    addName();
+}, []);
+
+
+    /*
     useEffect(() => {
         for (const key in cohortObj) {
             cohortObj[key].proColor = colors[Math.floor(Math.random()*colors.length)];
@@ -203,23 +219,32 @@ const IncrementFriends = () => {
 
         displayFriend();
     }, []);
+*/
 
     return (
-        <div>
-            {currentFriend && (
+        <div className="nameContainer">
+            {currentFriend.map((nameObj, index) => (
+                <div className="nameWrapper" key={nameObj.id}>
+                    <div className="name" style={{animationDelay: `${index * 1}s`}}>
+                        {nameObj.name}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
+
+const randomHexagonColor = () => {
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+/*
+{currentFriend && (
                 <div style={{ color: currentFriend.proColor }}>
                     <HexagonComponent person={currentFriend} color={currentFriend.proColor}/>
                     
-                </div>//need to change to individual profile component
-            )}
-        </div>
-    );
-}
-
-
-
-
-export default IncrementFriends;
+*/
+export default IncrementFriend;
 
 
 

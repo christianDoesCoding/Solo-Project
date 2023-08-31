@@ -14,6 +14,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: black;
+   /* cursor: url('components/Pictures/Bee-cursor.png'), auto;*/
 }
 
 /*  
@@ -53,6 +54,7 @@ TODO:
     left: 0;
     /*justify-content: left;*/
     transition: transform 0.5s ease-out;
+    /*cursor: url('components/Pictures/Bee-pointer.png'), auto;*/
 }
 
 #hexagon-container.show {
@@ -152,4 +154,24 @@ TODO:
     100% {
         opacity: 1;
     }
+}
+
+.nameContainer {
+    display: flex;
+    flex-wrap: no-wrap;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.name {
+    display: inline-block;
+    font-size: 18px;
+    margin: 5px 50px;
+    padding-left: 20px;
+    color: white;
+    animation: moveName 5s linear infinite;
+    white-space: nowrap;
 }

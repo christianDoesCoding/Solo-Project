@@ -28,6 +28,12 @@ const tooquick = ['pick a song first',
 'don\'t touch me',
 'nah, I don\'t really feel like it']
 
+/*
+const imagePrompt = `Please make me an image with the following 6-digit hexadecimal codes: ${HexagonComponent[0]}, ${storedColors[1]}, ${storedColors[2]}, and ${storedColors[3]}. A few of my interests are: ${interestArr[0]}, ${interestArr[1]}, ${interestArr[2]}, and ${interestArr[3]}. Feel free to use these topics as inspiration for my image; it is not a requirement. Thank you!`
+*/
+
+
+
 export default function ProfileContainer() {
     const [greetings, setGreeting] = useState('');
 
@@ -50,6 +56,7 @@ useEffect(() => {
         </div>
     )
 }
+
 
 
 

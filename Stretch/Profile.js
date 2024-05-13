@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import '/src/style.css'
+import '/src/style.css';
 import HexagonComponent from '../src/hexagons.js'; //passes in storeColor array for AI generating picture
-import logo from '../../../../logo.png'
+import logo from '../src/components/Pictures/logo.png';
 //STRETCH
 
 //greetings array //random greeting fades in after screen is rendered //stays for a few seconds, then fades out and lastly fades to logo 

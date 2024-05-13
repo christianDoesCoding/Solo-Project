@@ -1,7 +1,7 @@
 import express from 'express';
 // import mongoose from 'mongoose'; // Uncomment if you plan to use mongoose
 import path from 'path';
-import { profileController } from './ProfileController.js';  // Adjust the path as necessary
+import { profileController } from '../profileController.js';  // Adjust the path as necessary
 
 const app = express();
 const router = express.Router();

@@ -555,13 +555,7 @@ function HexagonComponent() {
                         .delay(100) // Add delay here to wait before flashing back on
                         .duration(50) // flash back on (flicker effect)
                         .style("opacity", 1);
-
-                /*hexagon.transition() //STRETCH: add the flicker affect after all is rendered
-                        .duration(50)
-                        .delay(i * delayPresent)
-                        .style("opacity", 0)*/
                 }
-                        //consider moving out of for loop for efficiency
                         function getHexagonPoints(x, y, size) { //hexagon creation
                             const angles = d3.range(0, 2 * Math.PI, Math.PI / 3);
                             const points = angles.map(angle => [x + size * Math.cos(angle), y + size * Math.sin(angle)]);

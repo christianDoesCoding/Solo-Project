@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+//import { useState, useEffect } from 'react';
 
 
 //logic where songs are chosen in coordinance with colors

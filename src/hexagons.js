@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import './style.css';
 import * as d3 from 'd3';
-import firstObj from '/songSelector.js'
+//import firstObj from '/songSelector.js'
 import axios from 'axios';
 //import { profileController } from '/profileController'
 //import links from songSelector
@@ -504,32 +504,39 @@ function assignClickHandler(hexagon, arr, i, individualColor) {
             } else {
                 numID = [i];
             } //don't put localhost; if proxy is set up correctly it is not necessary
+            console.log(`${numID} has been clicked!!`)
 
             /* routing logic
             //once clicked, it creates a get request, with the passed in key, which then goes to profileController selectSong middleware
             //router.js will return path.resolve(__dirname, value with associated link)
             */
             try {
-                const response = await axios.get(`/../routes/router/${numID}`)
+                const response = await axios.get(`/routes/router/${numID}`)
+                console.log("tring to get router/id")
                 console.log('Server response:', response.data);
-                //simple redirect logic with color array handling
-                if (storedColors.length >= 4) {
-                    storedColors.shift();
-                    storedColors.push(individualColor); //need to create setTimeout for delay for profile image
-                    console.log(storedColors);
-                    console.log(numID);
-                    return window.open((firstObj[numID]))
-                } else {
-                    storedColors.push(individualColor);
-                    console.log(storedColors);
-                    console.log(numID);
-                    return window.open((firstObj[numID])); //opens new tab and chooses the song
-                }
             } catch (error) {
                 console.error('Error making GET request for color:', error);
             }
             });
     };
+                //simple redirect logic with color array handling
+                
+
+                /*
+                if (storedColors.length >= 4) {
+                    storedColors.shift();
+                    storedColors.push(individualColor); //need to create setTimeout for delay for profile image
+                    console.log(storedColors);
+                    console.log(numID);
+                    //return window.open((firstObj[numID]))
+                } else {
+                    storedColors.push(individualColor);
+                    console.log(storedColors);
+                    console.log(numID);
+                    //return window.open((firstObj[numID])); //opens new tab and chooses the song
+                }
+
+                */
 
 function HexagonComponent() {
     const svgRef = useRef(null); //each individual click event

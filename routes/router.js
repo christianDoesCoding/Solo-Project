@@ -1,21 +1,32 @@
 import express from 'express';
 // import mongoose from 'mongoose'; // Uncomment if you plan to use mongoose
 import path from 'path';
-import { profileController } from '../profileController.js';  // Adjust the path as necessary
+import { profileController } from '../profileController.js';
 
 const app = express();
 const router = express.Router();
-const firstObj = './songSelector';
-
 
 app.get('/', (req, res) => {
+    console.log("sweet, you made it :)")
     return res.status(200).sendFile(path.resolve(__dirname, './src/index.html')); 
 })
+app.use('/routes', router);
 
-
-app.get(`/routes/router.js/${numID}`, profileController.selectSong, (req, res) => {
-    return res.status(200).sendFile(path.resolve(__dirname, 'firstObj[numID]'))
+router.get(`/router/:numID`, (req, res, next) => {
+    console.log(`Received request for numID: ${req.params.numID}`);
+    next();
+    profileController.selectSong, (req, res) => {
+    const songURL = res.locals.linkResp; // URL returned by the middleware
+    if (songURL) {
+        return res.redirect(songURL); // Redirect to the URL
+    } else {
+        return res.status(404).send('URL not found');
+    }
+    }
 })
+
+
+
 
 
 /*
@@ -26,6 +37,14 @@ app.get('/songSelector', profileController.selectSong, (req, res) => {
 */
 
 router.post('/songSelector', require('.profileController').selectSong);
+
+/*
+const PORT = 8080;
+app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
+*/
+
+export default app;
+
 
 //import { profileController } from '/profileController'
 
@@ -72,9 +91,3 @@ router.post('/songSelector', require('.profileController').selectSong);
     return res.status(errorObj.status).json(errorObj.message);
     })
     */
-    
-/*
-app._router.listen(PORT () => console.log(`Listening on PORT: ${PORT}`));
-*/
-
-export default router;

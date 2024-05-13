@@ -11,6 +11,22 @@ const profileController = {
     
     //clicking on button directing to a song
     selectSong: (req, res, next) => {
+
+        const { numID } = req.params;
+        const songURL = firstObj[numID];
+
+        if (songURL) {
+            res.locals.linkResp = songURL;
+            next();
+        } else {
+            res.status(404).send('Song URL not found');
+        }
+    }
+    };
+    
+    export default profileController;
+        
+        /*
                 const { colorName } = req.query; //should pass in associated key
                 const songURL = firstObj[colorName]; //actual link to redirect
                 
@@ -32,12 +48,13 @@ const profileController = {
                     if (found === true) {return next()}
                     else {
                         return next({
-                            log: 'error found in getColor function',
+                            log: 'error found in selectSong function',
                             status: 400,
                             message: { err: 'oops, not that color... pick a different one :)' }
                         })
                     }
                 },
+        */
     
     //adding colors to collectedColors array
     
@@ -49,7 +66,3 @@ const profileController = {
     
     //STRETCH: delete profile
     //STRETCH: update profile
-
-};
-
-export default profileController;

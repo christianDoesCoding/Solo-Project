@@ -2,6 +2,9 @@ import express from 'express';
 import axios from 'axios'
 import path from 'path';
 import cors from 'cors'
+import router from './routes/router.js'
+
+
 const app = express();
 const port = process.env.PORT || 3000; //if PORT environment exist, use that port... otherwise, use ____ (environment variable)
 
@@ -10,8 +13,15 @@ app.use(
     cors({
         origin: "http://localhost:3000",
     }));
+
+
 app.use(express.json());
 //app.use('/', router);
+
+app.use('/', router);
+
+
+
 
 app.get('/api:targetURL', async (req, res) => {//req.body, req.params, req.query
     //window.open(passed-in URL)
@@ -24,16 +34,17 @@ app.get('/api:targetURL', async (req, res) => {//req.body, req.params, req.query
         const response = await axios.get(targetURL);
         res.json(response.data);
     } catch (error) {
-        res.status(500).json({ error: 'An error occurred :(' });
+        res.status(500).json({ error: 'Oop an error occurred :(' });
     }
 });
-
 
 //Routes
 //app.use('/api', router);
 
 //add 404 error handler
-
+app.use((req, res, next) => {
+    res.status(404).send('Route has not been found');
+})
 
 //global error handler
 app.use((err, req, res, next) => {

@@ -11,14 +11,19 @@ const firstObj = './songSelector';
 app.get('/', (req, res) => {
     return res.status(200).sendFile(path.resolve(__dirname, './src/index.html')); 
 })
-app.get('/styles.css', (req, res) => {
-    return res.status(200).sendFile(path.resolve(__dirname, './src/styles.css'))
+
+
+app.get(`/routes/router.js/${numID}`, profileController.selectSong, (req, res) => {
+    return res.status(200).sendFile(path.resolve(__dirname, 'firstObj[numID]'))
 })
 
+
+/*
 //after picking color, go to /links
 app.get('/songSelector', profileController.selectSong, (req, res) => {
     return res.status(200).sendFile({firstObj: res.locals.linkResp});
   });
+*/
 
 router.post('/songSelector', require('.profileController').selectSong);
 

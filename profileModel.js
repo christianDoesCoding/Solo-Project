@@ -1,7 +1,7 @@
 //database logic
 import mongoose from 'mongoose'; //need to make sure I have mongoose required in application
 
-const MONGO_URI = 'mongodb+srv://christiandoescoding:SummerDay469@cluster0.nj75yer.mongodb.net/?retryWrites=true&w=majority';
+const MONGO_URI = 'mongodb+srv://christiandoescoding:SummerDay469@honeytones.ugqbxky.mongodb.net/?retryWrites=true&w=majority&appName=honeyTones'
 
 mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
@@ -22,4 +22,27 @@ const eachProfile = new Schema({
 
 const Profile = mongoose.model('profile', eachProfile);
 
+
 export default Profile;
+
+
+/*
+Schema:
+- username, password
+- name
+- selection history
+- session (JWT)
+- userID
+
+- Song ID
+- genre
+- text for comments associated with song, based from  user
+- date posted
+
+
+Comments --| id, name, email, song_id, comment, date
+Embedded_songs --| song_id, genre, runtime, name, writer, date produced, 
+Sessions --| id, user_id, jwt
+Users --| id, name, email, password
+*/
+

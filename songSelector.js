@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+//import { useState, useEffect } from 'react';
 
 
 //logic where songs are chosen in coordinance with colors
@@ -283,7 +283,7 @@ import { useState, useEffect } from 'react';
 //upon returning back to screen, message will pop up asking for feedback
 
 
-//create a GET request, where once button is clicked, it will lead to /links, and fromt there it will search for coordinating url, then redirect to page
+//create a GET request, where once button is clicked, it will lead to /links, and from there it will search for coordinating url, then redirect to page
 
 
 export default firstObj;
